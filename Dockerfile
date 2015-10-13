@@ -1,15 +1,12 @@
 # Using a compact OS
-FROM alpine:latest
+FROM mobtitude/vpn-pptp:latest
+MAINTAINER	Sandy Chan <sandydy.chan@gmail.com>
 
-MAINTAINER Golfen Guo <golfen.guo@daocloud.io> 
+ENV DEBIAN_FRONTEND noninteractive
 
-# Install Nginx
-RUN apk --update add nginx
+COPY ./chap-secrets /etc/ppp/chap-secrets
 
-# Add 2048 stuff into Nginx server
-COPY . /usr/share/nginx/html
+RUN chmod 0700 /entrypoint.sh
 
-EXPOSE 80
-
-# Start Nginx and keep it from running background
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["pptpd", "--fg"]
