@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 COPY ./chap-secrets /etc/ppp/chap-secrets
 COPY ./pptpd-options /etc/ppp/pptpd-options
+COPY ./entrypoint.sh /entrypoint.sh
 
 RUN chmod 0700 /entrypoint.sh
 
